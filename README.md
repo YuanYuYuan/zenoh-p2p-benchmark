@@ -39,3 +39,10 @@ results
 ## Results
 
 TBA
+
+## Acknowledgments
+
+Thanks to the contributors
+
+- [jerry73204](https://github.com/jerry73204)
+- [Vincent Kuo](https://github.com/eurc17/)
