@@ -1,8 +1,8 @@
+use log::{error, info};
+use std::io::Write;
+use std::path::PathBuf;
 use std::time::Duration;
 use structopt::StructOpt;
-use std::path::PathBuf;
-use std::io::Write;
-use log::{error, info};
 
 mod utils;
 use utils::{Experiment, Result};
@@ -21,19 +21,22 @@ struct Opt {
     #[structopt(long, default_value = "5000", help = "timeout of receiving messages")]
     timeout: u64,
 
-    #[structopt(long, default_value = "output", help = "output directory for storing exp log")]
+    #[structopt(
+        long,
+        default_value = "output",
+        help = "output directory for storing exp log"
+    )]
     output_dir: PathBuf,
 }
 
-
 #[async_std::main]
-async fn main() ->Result<()> {
+async fn main() -> Result<()> {
     let Opt {
         n_peers,
         payload_size,
         warmup,
         timeout,
-        output_dir
+        output_dir,
     } = Opt::from_args();
 
     pretty_env_logger::init();

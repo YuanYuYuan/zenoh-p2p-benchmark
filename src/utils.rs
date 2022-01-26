@@ -1,9 +1,9 @@
-use futures::StreamExt;
-use zenoh as zn;
-use std::time::{Duration, Instant};
 use collected::SumVal;
-use futures::{try_join, future::try_join_all};
+use futures::StreamExt;
+use futures::{future::try_join_all, try_join};
 use serde::{Deserialize, Serialize};
+use std::time::{Duration, Instant};
+use zenoh as zn;
 
 const KEY: &str = "/key";
 
@@ -22,11 +22,14 @@ async fn consumer(session: &zn::Session, n_peers: usize, timeout: Duration) -> R
 
     let num_received = stream
         .take(n_peers)
-        .take_until({async move {
-            async_std::task::sleep(timeout).await;
-        }})
+        .take_until({
+            async move {
+                async_std::task::sleep(timeout).await;
+            }
+        })
         .filter(|change| futures::future::ready(change.kind == zn::prelude::SampleKind::Put))
-        .count().await;
+        .count()
+        .await;
     Ok(num_received)
 }
 
@@ -61,14 +64,13 @@ impl Experiment {
         });
 
         let results = try_join_all(workers).await?;
-        let (total_received, total_elapsed): (SumVal<usize>, SumVal<Duration>) = results.into_iter().unzip();
+        let (total_received, total_elapsed): (SumVal<usize>, SumVal<Duration>) =
+            results.into_iter().unzip();
         let exp_log = ExpLog {
             config: self.clone(),
             delivery_ratio: total_received.into_inner() as f64 / self.n_peers.pow(2) as f64,
             average_time: total_elapsed.into_inner().as_secs_f64() / self.n_peers as f64,
         };
         Ok(exp_log)
-
     }
 }
-
