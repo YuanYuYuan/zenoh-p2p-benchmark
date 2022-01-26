@@ -1,5 +1,14 @@
 # Zenoh Peer-to-peer Benchmark
 
+This project aims to benchmark the performance of peer-to-peer communication
+with Zenoh. The message communication mechanism is simply focused on
+one peer broadcasts message to each others,
+and each peer count the message it successfully received.
+
+The experimental variables are the number of peers and the size of transporting packets.
+Currently, we only implemented the experiments about number of peers.
+
+
 ## Prerequisites
 
 1. Build Rust source code for running the benchmark.
