@@ -56,6 +56,7 @@ First, we need to The following results can be plotted by running
 
 ### Setting
 
+* Zenoh version: 0.6.0-dev, rev = "3a8c8cd1ad202f9f388397a6f8abd39ab3bd03bd"
 * Machine
     * CPU: AMD Ryzen 9-5950X 3.4GH
     * Memory: 32 GB
