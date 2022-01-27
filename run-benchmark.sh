@@ -16,6 +16,6 @@ for n_peers in $(seq $min_n_peers $max_n_peers); do
         --log ${out_dir}/usage.txt \
         --include-children \
         --duration $timeout
-    pkill zenoh-benchmark
+    pkill zenoh-p2p-benchmark
     sleep 1
 done
