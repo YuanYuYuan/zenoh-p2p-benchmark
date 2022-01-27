@@ -83,6 +83,7 @@ By observing the figures above, we found that
 1. According to the occupation of memory, the Zenoh session cannot close itself even though the P2P communication has finished.
 2. The program suddenly fails to send/receive messages if the number of peers exceeds 26.
 
+![](./pic/demo.png)
 
 ## Acknowledgments
 
